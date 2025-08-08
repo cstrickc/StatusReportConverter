@@ -14,6 +14,7 @@ namespace StatusReportConverter.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly IDocumentConverterService converterService;
+        private readonly IHtmlParserService htmlParserService;
         private readonly ILogger<MainViewModel> logger;
         private StatusReport statusReport;
         private bool isConverting;
@@ -63,9 +64,10 @@ namespace StatusReportConverter.ViewModels
         public ICommand SubmitCurrentWeekCommand { get; private set; }
         public ICommand SubmitNextWeekCommand { get; private set; }
 
-        public MainViewModel(IDocumentConverterService converterService, ILogger<MainViewModel> logger)
+        public MainViewModel(IDocumentConverterService converterService, IHtmlParserService htmlParserService, ILogger<MainViewModel> logger)
         {
             this.converterService = converterService;
+            this.htmlParserService = htmlParserService;
             this.logger = logger;
             
             statusReport = new StatusReport();
@@ -105,10 +107,22 @@ namespace StatusReportConverter.ViewModels
 
             if (dialog.ShowDialog() == true)
             {
+                var extractedReport = htmlParserService.ExtractContentFromHtml(dialog.FileName);
+                
                 StatusReport.InputHtmlPath = dialog.FileName;
+                StatusReport.CurrentWeekStatus = extractedReport.CurrentWeekStatus;
+                StatusReport.NextWeekGoals = extractedReport.NextWeekGoals;
+                
+                StatusReport.Risks.Clear();
+                foreach (var risk in extractedReport.Risks)
+                {
+                    StatusReport.Risks.Add(risk);
+                }
+                
                 OnPropertyChanged(nameof(StatusReport));
                 OnPropertyChanged(nameof(CanConvert));
-                logger.LogInformation("Input file selected: {Path}", dialog.FileName);
+                logger.LogInformation("Input file selected and content extracted: {Path}", dialog.FileName);
+                StatusMessage = "HTML content loaded and parsed successfully";
             }
         }
 

@@ -19,13 +19,29 @@ namespace StatusReportConverter
         {
             base.OnStartup(e);
 
-            Env.Load();
+            try
+            {
+                var envPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".env");
+                if (File.Exists(envPath))
+                {
+                    Env.Load(envPath);
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show($".env file not found at: {envPath}", "Configuration Warning");
+                }
 
-            ConfigureLogging();
-            ConfigureServices();
+                ConfigureLogging();
+                ConfigureServices();
 
-            var mainWindow = serviceProvider!.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+                var mainWindow = serviceProvider!.GetRequiredService<MainWindow>();
+                mainWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Application startup error: {ex.Message}\n\n{ex.StackTrace}", "Error");
+                Shutdown();
+            }
         }
 
         private void ConfigureLogging()
@@ -68,6 +84,12 @@ namespace StatusReportConverter
                 var factory = new LoggerFactory().AddSerilog();
                 return factory.CreateLogger<IDocumentConverterService>();
             });
+            
+            services.AddSingleton<ILogger<IHtmlParserService>>(provider =>
+            {
+                var factory = new LoggerFactory().AddSerilog();
+                return factory.CreateLogger<IHtmlParserService>();
+            });
 
             services.AddSingleton<ILogger<MainViewModel>>(provider =>
             {
@@ -76,6 +98,7 @@ namespace StatusReportConverter
             });
 
             services.AddSingleton<IDocumentConverterService, DocumentConverterService>();
+            services.AddSingleton<IHtmlParserService, HtmlParserService>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainWindow>();
 

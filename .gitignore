@@ -393,6 +393,12 @@ Production Config files and Directories.md
 # Batch files (Windows scripts not needed in repo)
 *.bat
 
+# Windows special files
+nul
+con
+prn
+aux
+
 # Aspose License Files
 *.lic
 Aspose.TotalProductFamily.lic
