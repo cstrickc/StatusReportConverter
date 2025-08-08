@@ -54,14 +54,14 @@ namespace StatusReportConverter.ViewModels
             !string.IsNullOrWhiteSpace(StatusReport.InputHtmlPath) && 
             !string.IsNullOrWhiteSpace(StatusReport.OutputWordPath);
 
-        public ICommand BrowseInputCommand { get; }
-        public ICommand BrowseOutputCommand { get; }
-        public ICommand ConvertCommand { get; }
-        public ICommand CancelCommand { get; }
-        public ICommand AddRiskCommand { get; }
-        public ICommand DeleteRiskCommand { get; }
-        public ICommand SubmitCurrentWeekCommand { get; }
-        public ICommand SubmitNextWeekCommand { get; }
+        public ICommand BrowseInputCommand { get; private set; }
+        public ICommand BrowseOutputCommand { get; private set; }
+        public ICommand ConvertCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
+        public ICommand AddRiskCommand { get; private set; }
+        public ICommand DeleteRiskCommand { get; private set; }
+        public ICommand SubmitCurrentWeekCommand { get; private set; }
+        public ICommand SubmitNextWeekCommand { get; private set; }
 
         public MainViewModel(IDocumentConverterService converterService, ILogger<MainViewModel> logger)
         {
