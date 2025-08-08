@@ -14,11 +14,13 @@ namespace StatusReportConverter.Services
     public class DocumentConverterService : IDocumentConverterService
     {
         private readonly ILogger<IDocumentConverterService> logger;
+        private readonly IChartService chartService;
         private bool licenseLoaded = false;
 
-        public DocumentConverterService(ILogger<IDocumentConverterService> logger)
+        public DocumentConverterService(ILogger<IDocumentConverterService> logger, IChartService chartService)
         {
             this.logger = logger;
+            this.chartService = chartService;
             LoadLicense();
         }
 
@@ -113,6 +115,15 @@ namespace StatusReportConverter.Services
                 
                 DocumentFormattingHelper.ConfigureHeadersAndFooters(doc, logger);
                 DocumentFormattingHelper.EnsureTableHeaderRepetition(doc, logger);
+                
+                // Extract and insert charts
+                logger.LogInformation("Extracting chart data from HTML");
+                var charts = chartService.ExtractChartDataFromHtml(report.InputHtmlPath);
+                if (charts.Any())
+                {
+                    logger.LogInformation("Inserting {Count} charts into document", charts.Count);
+                    chartService.InsertChartsIntoDocument(doc, charts);
+                }
                 
                 // Prevent orphaned headings at bottom of pages
                 DocumentPostProcessor.PreventOrphanedHeadings(doc, logger);

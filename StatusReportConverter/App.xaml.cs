@@ -90,6 +90,12 @@ namespace StatusReportConverter
                 var factory = new LoggerFactory().AddSerilog();
                 return factory.CreateLogger<IHtmlParserService>();
             });
+            
+            services.AddSingleton<ILogger<IChartService>>(provider =>
+            {
+                var factory = new LoggerFactory().AddSerilog();
+                return factory.CreateLogger<IChartService>();
+            });
 
             services.AddSingleton<ILogger<MainViewModel>>(provider =>
             {
@@ -99,6 +105,7 @@ namespace StatusReportConverter
 
             services.AddSingleton<IDocumentConverterService, DocumentConverterService>();
             services.AddSingleton<IHtmlParserService, HtmlParserService>();
+            services.AddSingleton<IChartService, ChartService>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainWindow>();
 
