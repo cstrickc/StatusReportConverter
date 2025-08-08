@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI Weekly Status Report</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 0.75in;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #333;
+            max-width: 7in;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 20pt;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 5px;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            color: #34495e;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .date-subtitle {
+            text-align: center;
+            font-size: 11pt;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 9pt;
+        }
+        
+        th {
+            background-color: #34495e;
+            color: white;
+            padding: 6px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #2c3e50;
+        }
+        
+        td {
+            padding: 4px 6px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .status-cell {
+            font-weight: bold;
+            text-align: center;
+            padding: 2px 4px;
+        }
+        
+        .compact-table {
+            font-size: 8pt;
+        }
+        
+        .compact-table td {
+            padding: 2px 4px;
+            line-height: 1.2;
+        }
+        
+        .description-cell {
+            font-size: 7.5pt;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .chart-container {
+            margin: 20px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+        
+        .chart {
+            display: inline-block;
+            vertical-align: top;
+            margin: 10px;
+        }
+        
+        .chart-title {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+        
+        canvas {
+            border: 1px solid #ddd;
+            max-width: 100%;
+        }
+        
+        @media print {
+            body {
+                font-size: 10pt;
+            }
+            
+            table {
+                font-size: 8pt;
+            }
+            
+            .compact-table {
+                font-size: 7pt;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <h1>Enterprise AI Weekly Status Report</h1>
+    <div class="date-subtitle">Week Ending August 8, 2025</div>
+    
+    <h2>Accomplishments: Current Week</h2>
+    <ul>
+        <li>Achieved 95% Corporate AI Foundry & ML Landing Zone Completion</li>
+        <li>Identified Requirement for Segment AI Foundry and AI Services Landing Zones</li>
+        <li>Created and Published Chat Digital Assistant Financial Analysis</li>
+        <li>Identified Vistar AI Development resources</li>
+        <li>Presented AI Concept and Strategy to Mountain Manufacturing</li>
+        <li>Reviewed Segment AI Guidance with Segment IT Leaders</li>
+        <li>Kick-off & Architect Vistar AI POC</li>
+    </ul>
+    
+    <h2>Planned Accomplishments: Next Week</h2>
+    <ul>
+        <li>Engage Vistar Development Resources</li>
+        <li>Identify completion date for Vistar AI Foundry & AI Services Landing Zone</li>
+        <li>Identify Segment sequence for enabling AI Foundry & AI Services Landing Zone and establish target dates</li>
+        <li>Obtain PowerBI CoPilot exception license for 1 Vistar Procurement resource (short duration) for POC</li>
+        <li>Continue Chat Digital Assistance Risk & InfoSec Review and Negotiations</li>
+    </ul>
+    
+    <h2>Risks</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Risk</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Infrastructure</td>
+                <td>Open</td>
+                <td>Vistar Landing Zone Setup</td>
+                <td>May delay POC deployment and testing</td>
+                <td>Create POC and port to Landing Zone when available</td>
+                <td>Mark B & Charley S</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Top 25 AI Initiatives Status</h2>
+    <table class="compact-table">
+        <thead>
+            <tr>
+                <th style="width: 30px;">ID</th>
+                <th style="width: 200px;">Name</th>
+                <th style="width: 250px;">Description</th>
+                <th style="width: 100px;">Status</th>
+                <th style="width: 80px;">Board Quarters</th>
+                <th style="width: 80px;">Radar Dimension</th>
+                <th style="width: 150px;">Value Driver Combo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Customer Recommendation</td>
+                <td class="description-cell">Digital Commerce Customer Suggestions based on history, Customer type, what they are currently ordering</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Master Data Rationalization Categorization & Enrichment</td>
+                <td class="description-cell">Provide AI suggested digital commerce product marketing description conforming to PFG standards</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Master Data Rationalization Categorization & Enrichment</td>
+                <td class="description-cell">Provide AI suggested item classification and categories for efficient user confirmation</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>State Tobacco Excise Tax</td>
+                <td class="description-cell">Assist in identification and reconciliation of tobacco returns eligible for tax payment recovery</td>
+                <td class="status-cell" style="background-color: #00D9D9;">Moved AI > Software</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Warehouse Behavior Monitor & Continuous Warehouse Safety Improvement</td>
+                <td class="description-cell">Voxel AI - Warehouse Vision for Safety and Continuous Safety Feedback Loop for better training</td>
+                <td class="status-cell" style="background-color: #009BD5; color: white;">In Pilot or POC</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Core Capabilities</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Fleet Behavior Monitor Alert and Coach</td>
+                <td class="description-cell">Samsara</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Core Capabilities</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Where's my delivery?</td>
+                <td class="description-cell">GPS Delivery Tracking</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Core Capabilities</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Redistribution Opportunity & Integration Support</td>
+                <td class="description-cell">Assist in redistribution inventory planning suggestions not only by zip code, but also within the 4-walls</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Core Capabilities</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Customer Credit Risk Monitoring & Review</td>
+                <td class="description-cell">Aggregating and identify customer credit risk across sales channels, segments, and ERPs</td>
+                <td class="status-cell" style="background-color: #004040; color: white;">Business Case did not meet criteria</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Customer Credit Memo Workflow and Approval</td>
+                <td class="description-cell">Credit memo and review approval analytics, including invoice review</td>
+                <td class="status-cell" style="background-color: #004040; color: white;">Business Case did not meet criteria</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Applications Training Content and Knowledge Management</td>
+                <td class="description-cell">Provide for efficient and high quality training, data conversion, and compliance</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Earned Income Consistency & Effectiveness</td>
+                <td class="description-cell">Provide consistency for earned income (Rebate Management)</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q4 25 / Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Customer First - Customer Chat with Products & Menus with AI Suggestions</td>
+                <td class="description-cell">Customer First Customer Chat Bot for enhanced AI search on product attributes</td>
+                <td class="status-cell" style="background-color: #009BD5; color: white;">In Pilot or POC</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Proactive Customer Experience Action & Touch</td>
+                <td class="description-cell">AI: Speech to Text - Improve Customer Satisfaction</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Dynamic AI Digital Sales Product Category Adjustments Derived from Customer Shopping Behaviour</td>
+                <td class="description-cell">Customer first Tile based shopping, looking appetizers regardless how they stored</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Account Management Product Association Assist</td>
+                <td class="description-cell">Crowd sourcing from AM cup to lid mappings, poorly maintained by EDM</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Account Management Stock Alerts & Account Management Task Assistance</td>
+                <td class="description-cell">New processes to minimize time reviewing potential out of stocks</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>Customer Selected & Scheduled Order Pickup Time</td>
+                <td class="description-cell">Ability for AM and customer to enter an order and choose a pickup time</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>Sales Forecast Optimize & Tune</td>
+                <td class="description-cell">Leverage AI and data not just based upon sales for an opco</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>Chat with Purchase Orders and Inbound Stock Schedules</td>
+                <td class="description-cell">Create an AI question and answer agent to be used by customer service and sales</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td>Chat with Customer Service AI Coordination Agent</td>
+                <td class="description-cell">Create an AI question and answer agent to be used by purchasing and sales</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>22</td>
+                <td>Customer Service Order Entry and Maintenance Agent</td>
+                <td class="description-cell">Parse customer order email to order add / edit to save time</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Front Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>23</td>
+                <td>Generative AI Chatbot</td>
+                <td class="description-cell">Generative AI Chatbot - General Multimodal Chat Bot / Chat with Document & Policies</td>
+                <td class="status-cell" style="background-color: #009BD5; color: white;">In Pilot or POC</td>
+                <td>Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>Corporate IT Support Chat</td>
+                <td class="description-cell">Corporate IT Support Case Chat Bot</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>MDM - Corp Item Deduplication & Map to Segment Items</td>
+                <td class="description-cell">Provide AI assisted corporate item dedup and segment item map</td>
+                <td class="status-cell" style="background-color: #00C000; color: white;">Planned for future Release</td>
+                <td>Q1 26</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="page-break"></div>
+    
+    <h2>Visuals: Top 25 Initiative Analysis</h2>
+    <div class="chart-container">
+        <div class="chart">
+            <div class="chart-title">Top 25 Initiative Status Distribution</div>
+            <canvas id="statusChart" width="300" height="300"></canvas>
+        </div>
+        <div class="chart">
+            <div class="chart-title">Top 25 Value Analysis</div>
+            <canvas id="valueChart" width="300" height="300"></canvas>
+        </div>
+        <div class="chart">
+            <div class="chart-title">Top 25 AI Category Analysis</div>
+            <canvas id="categoryChart" width="300" height="300"></canvas>
+        </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <h2>Completed AI Initiatives</h2>
+    <table class="compact-table">
+        <thead>
+            <tr>
+                <th style="width: 30px;">ID</th>
+                <th style="width: 200px;">Name</th>
+                <th style="width: 300px;">Description</th>
+                <th style="width: 80px;">Status</th>
+                <th style="width: 80px;">Radar Dimension</th>
+                <th style="width: 180px;">Value Driver Combo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>Master Data Rationalization Categorization & Enrichment</td>
+                <td class="description-cell">Provide AI suggested digital commerce product marketing description conforming to PFG standards</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Master Data Rationalization Categorization & Enrichment</td>
+                <td class="description-cell">Provide AI suggested item classification and categories for efficient user confirmation</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Fleet Behavior Monitor Alert and Coach</td>
+                <td class="description-cell">Samsara</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Core Capabilities</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Where's my delivery?</td>
+                <td class="description-cell">GPS Delivery Tracking</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Core Capabilities</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>95</td>
+                <td>Customer First - AI Search</td>
+                <td class="description-cell">AI enhanced customer product search providing more comprehensive results incorporating intent and more relational to query intent</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>96</td>
+                <td>Automated tuning & built‑in intelligence monitoring DB queries & performance</td>
+                <td class="description-cell">Streamlined Customer First database performance & optimization</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>97</td>
+                <td>Image Intelligence - Customer First</td>
+                <td class="description-cell">Product image recognition, object identification, GS1 Media code assignment, and intelligent image content moderation</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Front Office</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>98</td>
+                <td>UIPath Bots</td>
+                <td class="description-cell">41 automations in use today across AP, AR, Tax, Purchasing, etc..</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>99</td>
+                <td>Automation Anywhere Bots</td>
+                <td class="description-cell">36 automations in use today across AP, AR, Tax, Purchasing, etc..</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>100</td>
+                <td>CoPilot for GitHub</td>
+                <td class="description-cell">AI enhanced coding and suggested code completion</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>101</td>
+                <td>JIRA Rovo AI  - Analytic Insights</td>
+                <td class="description-cell">Natural-language search, summaries, & insight. AI-powered search, chat, studio and agents</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>AI Acceptable Use Policy Established</td>
+                <td class="description-cell">Established compliance behaviors, guardrails, & guidelines for AI Acceptable Use</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Core Capabilities</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>Articulate AI - Training Content Development</td>
+                <td class="description-cell">Additional AI enablement for an the existing articulate training solution</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>104</td>
+                <td>AI Use & Approval procedure and policy established</td>
+                <td class="description-cell">Established process and defined approvals for use of AI</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Core Capabilities</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>105</td>
+                <td>Use of free CoPilot to generate various use cases for VBA script embedded in office 365</td>
+                <td class="description-cell">Various Employee self-start initiatives. Estimated time savings is 1 - 1.5 hours per resource</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>110</td>
+                <td>Microsoft Defender for Endpoint</td>
+                <td class="description-cell">Microsoft Defender for Endpoint uses a combination of technology built into Windows 10</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>111</td>
+                <td>Microsoft Global Threat Intelligence</td>
+                <td class="description-cell">Microsoft Global Threat Intelligence provides a world-class intelligence team</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>112</td>
+                <td>Microsoft Defender for Identity</td>
+                <td class="description-cell">Microsoft Defender for Identity monitors and analyzes user activities and information</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>113</td>
+                <td>Microsoft Defender for M365</td>
+                <td class="description-cell">Microsoft Defender for Office 365 is a cloud-based email filtering service</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>114</td>
+                <td>Cisco Email Threat Defense</td>
+                <td class="description-cell">Protects against email threats before they come in</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>115</td>
+                <td>Cisco Talos Intelligence</td>
+                <td class="description-cell">Talos, Cisco Security Intelligence and Research Group, constantly tracks threats</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>116</td>
+                <td>Cisco Talos Incident Response</td>
+                <td class="description-cell">Cisco Talos Incident Response provides a full suite of proactive and emergency services</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>117</td>
+                <td>Prisma - SD WAN</td>
+                <td class="description-cell">Prisma SASE by Palo Alto Networks offers both networking and security services from the cloud</td>
+                <td class="status-cell" style="background-color: #0070C0; color: white;">Complete</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="page-break"></div>
+    
+    <h2>Remaining AI Initiatives</h2>
+    <table class="compact-table">
+        <thead>
+            <tr>
+                <th style="width: 30px;">ID</th>
+                <th style="width: 200px;">Name</th>
+                <th style="width: 300px;">Description</th>
+                <th style="width: 100px;">Status</th>
+                <th style="width: 80px;">Radar Dimension</th>
+                <th style="width: 180px;">Value Driver Combo</th>
+            </tr>
+        </thead>
+        <tbody>
+                <td>32</td>
+                <td>Penetration Testing</td>
+                <td class="description-cell">Network and site security penetration testing</td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>33</td>
+                <td>Deviation Reviews
+- Review both sides
+  - Discounting & Pricing</td>
+                <td class="description-cell">This initiative has several different facets/scenarios</td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Front Office</td>
+                <td>Mitigate Risk / Reduce Financial Volatility</td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td>Customer Profitability
+Qualify cost elements with</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Front Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>36</td>
+                <td>Suggested Sales
+Cost / Purchase / Price
+More dynamic</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>43</td>
+                <td>SOPs / Acct Policy
+Training Material
+Quick Find</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>44</td>
+                <td>Accounting policies
+- Keyword searches
+to pull relevant policy</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>45</td>
+                <td>AI -
+Reconconcilations</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>48</td>
+                <td>Enterprise non-customer
+logistic solution
+Crossbow</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>49</td>
+                <td>Strategic Purchasing
+Factor cost into
+Purchase & tell us
+when to go long / short</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>50</td>
+                <td>Cash Application
+Receive Check &
+Apply</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>51</td>
+                <td>Revenue Management
+Price Review
+NEMO</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Front Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+            <tr>
+                <td>52</td>
+                <td>CONCUR
+T&E
+AI Rvw for Policy issue
+Expense Report Review</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>54</td>
+                <td>Produce Quality</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Product/Service</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>55</td>
+                <td>AP Call / Email
+AI Agent</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>56</td>
+                <td>AP
+Real invoice +
+Enter into system</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>57</td>
+                <td>Vendor Chat
+Vendor can sign on
+& see statements
+& status</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>58</td>
+                <td>AP OCR data
+entry</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>59</td>
+                <td>AP Coding Automated
+GL Coding</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>60</td>
+                <td>Customer Service
+USDA / order
+uploading</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Front Office</td>
+                <td>Improve Customer Experience / Increase Customer Retention</td>
+            </tr>
+            <tr>
+                <td>61</td>
+                <td>Cigarette Stamp
+Ordering
+Order based on
+need</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>62</td>
+                <td>Driver Ticket Search</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>63</td>
+                <td>Financial Forecasting
+Better model to
+Forecast Rev & EBITDA</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Improve Operational Efficiency / Decrease Operating Expense</td>
+            </tr>
+            <tr>
+                <td>64</td>
+                <td>Misc. Rev
+- Tote billing (PFG)
+- Late Delivery fees</td>
+                <td class="description-cell"></td>
+                <td class="status-cell" style="background-color: #CFCDE0;">Requires Evaluation</td>
+                <td>Back Office</td>
+                <td>Increase Revenue / Increase Market Share</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script>
+        // Status Chart
+        const statusCtx = document.getElementById('statusChart').getContext('2d');
+        new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Complete (4)', 'Planned for future Release (16)', 'In Pilot or POC (3)', 'Business Case did not meet criteria (2)', 'Moved AI > Software (1)'],
+                datasets: [{
+                    data: [4, 16, 3, 2, 1],
+                    backgroundColor: ['#0070C0', '#00C000', '#009BD5', '#004040', '#00D9D9']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Value Analysis Chart
+        const valueCtx = document.getElementById('valueChart').getContext('2d');
+        new Chart(valueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Operational Efficiency (8)', 'Revenue Increase (9)', 'Customer Experience (4)', 'Risk Mitigation (4)'],
+                datasets: [{
+                    label: 'Number of Initiatives',
+                    data: [8, 9, 4, 4],
+                    backgroundColor: ['#34495e', '#2980b9', '#27ae60', '#e74c3c']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                }
+            }
+        });
+        
+        // AI Category Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Built & Blended AI (17)', 'Embedded AI (2)', 'TBD (3)', 'Not Applicable (3)'],
+                datasets: [{
+                    data: [17, 2, 3, 3],
+                    backgroundColor: ['#3498db', '#9b59b6', '#95a5a6', '#7f8c8d']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

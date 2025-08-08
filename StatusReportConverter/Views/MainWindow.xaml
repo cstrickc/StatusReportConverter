@@ -1,0 +1,181 @@
+<Window x:Class="StatusReportConverter.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Enterprise AI Status Report Converter" 
+        Height="700" Width="900"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        MinHeight="600" MinWidth="800">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="HTML to Word Status Report Converter" 
+                   FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" 
+                   Margin="0,0,0,20" Foreground="#2c3e50"/>
+
+        <GroupBox Grid.Row="1" Header="File Selection" Margin="0,0,0,10">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Input HTML File:" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         Text="{Binding StatusReport.InputHtmlPath, UpdateSourceTrigger=PropertyChanged}"
+                         VerticalAlignment="Center" Margin="5" IsReadOnly="True"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Browse..." 
+                        Command="{Binding BrowseInputCommand}" Margin="5"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Output Word File:" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" 
+                         Text="{Binding StatusReport.OutputWordPath, UpdateSourceTrigger=PropertyChanged}"
+                         VerticalAlignment="Center" Margin="5" IsReadOnly="True"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="Browse..." 
+                        Command="{Binding BrowseOutputCommand}" Margin="5"/>
+            </Grid>
+        </GroupBox>
+
+        <TabControl Grid.Row="2" Height="200" Margin="0,0,0,10">
+            <TabItem Header="Current Week Status">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" 
+                             Text="{Binding StatusReport.CurrentWeekStatus, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap" AcceptsReturn="True" 
+                             VerticalScrollBarVisibility="Auto"
+                             FontFamily="Consolas" FontSize="11"/>
+                    <Button Grid.Row="1" Content="Submit Changes" 
+                            Command="{Binding SubmitCurrentWeekCommand}"
+                            HorizontalAlignment="Right" Margin="0,5,0,0" 
+                            Width="120"/>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Next Week Goals">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" 
+                             Text="{Binding StatusReport.NextWeekGoals, UpdateSourceTrigger=PropertyChanged}"
+                             TextWrapping="Wrap" AcceptsReturn="True" 
+                             VerticalScrollBarVisibility="Auto"
+                             FontFamily="Consolas" FontSize="11"/>
+                    <Button Grid.Row="1" Content="Submit Changes" 
+                            Command="{Binding SubmitNextWeekCommand}"
+                            HorizontalAlignment="Right" Margin="0,5,0,0" 
+                            Width="120"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <GroupBox Grid.Row="3" Header="Risk Management" Margin="0,0,0,10">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Button Grid.Row="0" Content="Add New Risk" 
+                        Command="{Binding AddRiskCommand}"
+                        HorizontalAlignment="Left" Margin="0,0,0,10" 
+                        Width="120"/>
+                
+                <DataGrid Grid.Row="1" 
+                          ItemsSource="{Binding StatusReport.Risks}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          GridLinesVisibility="Horizontal"
+                          HeadersVisibility="Column"
+                          AlternatingRowBackground="#f9f9f9">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" 
+                                          Binding="{Binding Id}" 
+                                          Width="60" 
+                                          IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Description" 
+                                          Binding="{Binding Description}" 
+                                          Width="*"/>
+                        <DataGridTextColumn Header="Impact" 
+                                          Binding="{Binding Impact}" 
+                                          Width="120"/>
+                        <DataGridTextColumn Header="Mitigation" 
+                                          Binding="{Binding Mitigation}" 
+                                          Width="*"/>
+                        <DataGridComboBoxColumn Header="Status" 
+                                              SelectedItemBinding="{Binding Status}"
+                                              Width="80">
+                            <DataGridComboBoxColumn.ItemsSource>
+                                <x:Array Type="sys:String" 
+                                       xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                    <sys:String>Open</sys:String>
+                                    <sys:String>In Progress</sys:String>
+                                    <sys:String>Mitigated</sys:String>
+                                    <sys:String>Closed</sys:String>
+                                </x:Array>
+                            </DataGridComboBoxColumn.ItemsSource>
+                        </DataGridComboBoxColumn>
+                        <DataGridTextColumn Header="Date Identified" 
+                                          Binding="{Binding DateIdentified, StringFormat=\{0:MM/dd/yyyy\}}" 
+                                          Width="100"/>
+                        <DataGridTemplateColumn Header="Action" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" 
+                                          Command="{Binding DataContext.DeleteRiskCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                          CommandParameter="{Binding}"
+                                          Width="50" Height="22" FontSize="10"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+            <Button Content="Convert" 
+                    Command="{Binding ConvertCommand}"
+                    IsEnabled="{Binding CanConvert}"
+                    Width="120" Height="35" Margin="5"
+                    FontSize="14" FontWeight="Bold"/>
+            <Button Content="Cancel" 
+                    Command="{Binding CancelCommand}"
+                    Width="120" Height="35" Margin="5"
+                    FontSize="14"/>
+        </StackPanel>
+
+        <StatusBar Grid.Row="5">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMessage}"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <ProgressBar Width="100" Height="16" IsIndeterminate="{Binding IsConverting}" 
+                           Visibility="{Binding IsConverting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
