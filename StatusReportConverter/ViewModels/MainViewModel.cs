@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using StatusReportConverter.Commands;
+using StatusReportConverter.Constants;
 using StatusReportConverter.Models;
 using StatusReportConverter.Services;
 
@@ -68,9 +69,21 @@ namespace StatusReportConverter.ViewModels
             this.logger = logger;
             
             statusReport = new StatusReport();
-            statusMessage = "Ready";
+            statusMessage = AppConstants.StatusMessages.READY;
             isConverting = false;
 
+            InitializeCommands();
+            
+            logger.LogInformation("MainViewModel initialized");
+            
+            if (!converterService.ValidateLicense())
+            {
+                StatusMessage = AppConstants.StatusMessages.EVALUATION_MODE;
+            }
+        }
+
+        private void InitializeCommands()
+        {
             BrowseInputCommand = new RelayCommand(BrowseInput);
             BrowseOutputCommand = new RelayCommand(BrowseOutput);
             ConvertCommand = new AsyncRelayCommand(ConvertAsync, () => CanConvert);
@@ -79,21 +92,14 @@ namespace StatusReportConverter.ViewModels
             DeleteRiskCommand = new RelayCommand<Risk>(DeleteRisk);
             SubmitCurrentWeekCommand = new RelayCommand(SubmitCurrentWeek);
             SubmitNextWeekCommand = new RelayCommand(SubmitNextWeek);
-
-            logger.LogInformation("MainViewModel initialized");
-            
-            if (!converterService.ValidateLicense())
-            {
-                StatusMessage = "Warning: Running in evaluation mode";
-            }
         }
 
         private void BrowseInput()
         {
             var dialog = new OpenFileDialog
             {
-                Title = "Select HTML Status Report",
-                Filter = "HTML Files (*.html;*.htm)|*.html;*.htm|All Files (*.*)|*.*",
+                Title = AppConstants.FileDialogs.INPUT_DIALOG_TITLE,
+                Filter = AppConstants.FileDialogs.HTML_FILTER,
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
             };
 
@@ -110,9 +116,9 @@ namespace StatusReportConverter.ViewModels
         {
             var dialog = new SaveFileDialog
             {
-                Title = "Save Word Document As",
-                Filter = "Word Documents (*.docx)|*.docx|All Files (*.*)|*.*",
-                DefaultExt = "docx",
+                Title = AppConstants.FileDialogs.OUTPUT_DIALOG_TITLE,
+                Filter = AppConstants.FileDialogs.WORD_FILTER,
+                DefaultExt = AppConstants.FileDialogs.DEFAULT_EXTENSION,
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
                 FileName = $"StatusReport_{DateTime.Now:yyyyMMdd}.docx"
             };
@@ -131,21 +137,16 @@ namespace StatusReportConverter.ViewModels
             try
             {
                 IsConverting = true;
-                StatusMessage = "Converting...";
+                StatusMessage = AppConstants.StatusMessages.CONVERTING;
                 logger.LogInformation("Starting conversion");
 
                 var success = await converterService.ConvertHtmlToWordAsync(StatusReport);
 
-                if (success)
-                {
-                    StatusMessage = "Conversion completed successfully!";
-                    logger.LogInformation("Conversion completed successfully");
-                }
-                else
-                {
-                    StatusMessage = "Conversion failed. Check logs for details.";
-                    logger.LogError("Conversion failed");
-                }
+                StatusMessage = success ? 
+                    AppConstants.StatusMessages.SUCCESS : 
+                    AppConstants.StatusMessages.FAILED;
+                    
+                logger.LogInformation("Conversion {Status}", success ? "succeeded" : "failed");
             }
             catch (Exception ex)
             {
@@ -161,7 +162,7 @@ namespace StatusReportConverter.ViewModels
         private void Cancel()
         {
             logger.LogInformation("User cancelled operation");
-            StatusMessage = "Operation cancelled";
+            StatusMessage = AppConstants.StatusMessages.CANCELLED;
         }
 
         private void AddRisk()
@@ -185,7 +186,7 @@ namespace StatusReportConverter.ViewModels
             if (!string.IsNullOrWhiteSpace(StatusReport.CurrentWeekStatus))
             {
                 logger.LogInformation("Current week status updated");
-                StatusMessage = "Current week status updated";
+                StatusMessage = AppConstants.StatusMessages.CURRENT_WEEK_UPDATED;
             }
         }
 
@@ -194,7 +195,7 @@ namespace StatusReportConverter.ViewModels
             if (!string.IsNullOrWhiteSpace(StatusReport.NextWeekGoals))
             {
                 logger.LogInformation("Next week goals updated");
-                StatusMessage = "Next week goals updated";
+                StatusMessage = AppConstants.StatusMessages.NEXT_WEEK_UPDATED;
             }
         }
 

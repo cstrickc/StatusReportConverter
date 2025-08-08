@@ -1,13 +1,13 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Aspose.Words;
 using Aspose.Words.Loading;
-using Aspose.Words.Tables;
 using Microsoft.Extensions.Logging;
+using StatusReportConverter.Constants;
 using StatusReportConverter.Models;
+using StatusReportConverter.Utils;
 
 namespace StatusReportConverter.Services
 {
@@ -26,7 +26,8 @@ namespace StatusReportConverter.Services
         {
             try
             {
-                var licensePath = Environment.GetEnvironmentVariable("LICENSE_PATH") ?? "../Aspose.TotalProductFamily.lic";
+                var licensePath = Environment.GetEnvironmentVariable(AppConstants.Environment.LICENSE_PATH) 
+                    ?? AppConstants.Environment.DEFAULT_LICENSE_PATH;
                 
                 if (!Path.IsPathRooted(licensePath))
                 {
@@ -65,9 +66,15 @@ namespace StatusReportConverter.Services
         {
             try
             {
-                if (!File.Exists(report.InputHtmlPath))
+                if (!ValidationHelper.ValidateHtmlFile(report.InputHtmlPath, out var inputError))
                 {
-                    logger.LogError("Input HTML file not found: {Path}", report.InputHtmlPath);
+                    logger.LogError("Input validation failed: {Error}", inputError);
+                    return false;
+                }
+
+                if (!ValidationHelper.ValidateOutputPath(report.OutputWordPath, out var outputError))
+                {
+                    logger.LogError("Output validation failed: {Error}", outputError);
                     return false;
                 }
 
@@ -83,14 +90,8 @@ namespace StatusReportConverter.Services
                 var doc = new Document(report.InputHtmlPath, loadOptions);
 
                 UpdateDocumentContent(doc, report);
-                ConfigureDocumentFormatting(doc);
-                EnsureTableHeaderRepetition(doc);
-
-                var outputDir = Path.GetDirectoryName(report.OutputWordPath);
-                if (!string.IsNullOrEmpty(outputDir) && !Directory.Exists(outputDir))
-                {
-                    Directory.CreateDirectory(outputDir);
-                }
+                DocumentFormattingHelper.ConfigureHeadersAndFooters(doc, logger);
+                DocumentFormattingHelper.EnsureTableHeaderRepetition(doc, logger);
 
                 doc.Save(report.OutputWordPath, SaveFormat.Docx);
 
@@ -112,97 +113,40 @@ namespace StatusReportConverter.Services
 
                 if (!string.IsNullOrWhiteSpace(report.CurrentWeekStatus))
                 {
-                    var currentWeekNode = FindSectionByHeading(doc, "current week", "this week");
+                    var currentWeekNode = FindSectionByHeading(doc, AppConstants.DocumentSections.CURRENT_WEEK_KEYWORDS);
                     if (currentWeekNode != null)
                     {
                         builder.MoveTo(currentWeekNode);
                         builder.MoveToDocumentEnd();
                         builder.Writeln();
                         builder.ParagraphFormat.StyleIdentifier = StyleIdentifier.Normal;
-                        builder.Writeln(report.CurrentWeekStatus);
+                        builder.Writeln(ValidationHelper.SanitizeText(report.CurrentWeekStatus));
                         logger.LogInformation("Updated current week status");
                     }
                 }
 
                 if (!string.IsNullOrWhiteSpace(report.NextWeekGoals))
                 {
-                    var nextWeekNode = FindSectionByHeading(doc, "next week", "upcoming");
+                    var nextWeekNode = FindSectionByHeading(doc, AppConstants.DocumentSections.NEXT_WEEK_KEYWORDS);
                     if (nextWeekNode != null)
                     {
                         builder.MoveTo(nextWeekNode);
                         builder.MoveToDocumentEnd();
                         builder.Writeln();
                         builder.ParagraphFormat.StyleIdentifier = StyleIdentifier.Normal;
-                        builder.Writeln(report.NextWeekGoals);
+                        builder.Writeln(ValidationHelper.SanitizeText(report.NextWeekGoals));
                         logger.LogInformation("Updated next week goals");
                     }
                 }
 
                 if (report.Risks.Any())
                 {
-                    var risksNode = FindSectionByHeading(doc, "risk", "risks");
+                    var risksNode = FindSectionByHeading(doc, AppConstants.DocumentSections.RISK_KEYWORDS);
                     if (risksNode != null)
                     {
                         builder.MoveTo(risksNode);
                         builder.MoveToDocumentEnd();
-                        builder.Writeln();
-                        
-                        var table = builder.StartTable();
-                        
-                        builder.InsertCell();
-                        builder.CellFormat.Width = 50;
-                        builder.Font.Bold = true;
-                        builder.Write("ID");
-                        
-                        builder.InsertCell();
-                        builder.CellFormat.Width = 150;
-                        builder.Write("Description");
-                        
-                        builder.InsertCell();
-                        builder.CellFormat.Width = 100;
-                        builder.Write("Impact");
-                        
-                        builder.InsertCell();
-                        builder.CellFormat.Width = 150;
-                        builder.Write("Mitigation");
-                        
-                        builder.InsertCell();
-                        builder.CellFormat.Width = 70;
-                        builder.Write("Status");
-                        
-                        builder.InsertCell();
-                        builder.CellFormat.Width = 80;
-                        builder.Write("Date Identified");
-                        
-                        builder.EndRow();
-                        
-                        table.FirstRow.RowFormat.HeadingFormat = true;
-
-                        foreach (var risk in report.Risks)
-                        {
-                            builder.InsertCell();
-                            builder.Font.Bold = false;
-                            builder.Write(risk.Id);
-                            
-                            builder.InsertCell();
-                            builder.Write(risk.Description);
-                            
-                            builder.InsertCell();
-                            builder.Write(risk.Impact);
-                            
-                            builder.InsertCell();
-                            builder.Write(risk.Mitigation);
-                            
-                            builder.InsertCell();
-                            builder.Write(risk.Status);
-                            
-                            builder.InsertCell();
-                            builder.Write(risk.DateIdentified.ToShortDateString());
-                            
-                            builder.EndRow();
-                        }
-                        
-                        builder.EndTable();
+                        RiskTableBuilder.BuildRiskTable(builder, report);
                         logger.LogInformation("Added {Count} risks to document", report.Risks.Count);
                     }
                 }
@@ -213,7 +157,7 @@ namespace StatusReportConverter.Services
             }
         }
 
-        private Node? FindSectionByHeading(Document doc, params string[] keywords)
+        private Node? FindSectionByHeading(Document doc, string[] keywords)
         {
             var paragraphs = doc.GetChildNodes(NodeType.Paragraph, true);
             
@@ -227,62 +171,6 @@ namespace StatusReportConverter.Services
             }
             
             return null;
-        }
-
-        private void ConfigureDocumentFormatting(Document doc)
-        {
-            try
-            {
-                var builder = new DocumentBuilder(doc);
-
-                foreach (Section section in doc.Sections)
-                {
-                    builder.MoveToSection(doc.Sections.IndexOf(section));
-                    builder.MoveToHeaderFooter(HeaderFooterType.HeaderPrimary);
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;
-                    builder.Font.Name = "Arial";
-                    builder.Font.Size = 11;
-                    builder.Writeln("Enterprise AI Status Report");
-
-                    builder.MoveToHeaderFooter(HeaderFooterType.FooterPrimary);
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
-                    builder.Font.Name = "Arial";
-                    builder.Font.Size = 10;
-                    
-                    builder.Write("Page ");
-                    builder.InsertField("PAGE", "");
-                    builder.Write(" of ");
-                    builder.InsertField("NUMPAGES", "");
-                }
-
-                logger.LogInformation("Configured document headers and footers");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error configuring document formatting");
-            }
-        }
-
-        private void EnsureTableHeaderRepetition(Document doc)
-        {
-            try
-            {
-                var tables = doc.GetChildNodes(NodeType.Table, true);
-                
-                foreach (Table table in tables)
-                {
-                    if (table.FirstRow != null)
-                    {
-                        table.FirstRow.RowFormat.HeadingFormat = true;
-                    }
-                }
-
-                logger.LogInformation("Configured table header repetition for {Count} tables", tables.Count);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error configuring table headers");
-            }
         }
     }
 }

@@ -391,4 +391,16 @@ Production Config files and Directories.md
 .cursorrules 
 
 # Batch files (Windows scripts not needed in repo)
-*.bat 
+*.bat
+
+# Aspose License Files
+*.lic
+Aspose.TotalProductFamily.lic
+Aspose.*.lic
+
+# Example/test HTML files (optional - uncomment if you don't want these in repo)
+# ai_status_report*.html
+# *example*.html
+
+# Local example code
+Exampleconvertstatus.cs 

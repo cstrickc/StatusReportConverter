@@ -30,16 +30,18 @@ namespace StatusReportConverter
 
         private void ConfigureLogging()
         {
-            var logPath = Environment.GetEnvironmentVariable("LOG_PATH") ?? "./logs/";
-            var logLevel = Environment.GetEnvironmentVariable("LOG_LEVEL") ?? "Information";
+            var logPath = Environment.GetEnvironmentVariable(Constants.AppConstants.Environment.LOG_PATH) 
+                ?? Constants.AppConstants.Environment.DEFAULT_LOG_PATH;
+            var logLevel = Environment.GetEnvironmentVariable(Constants.AppConstants.Environment.LOG_LEVEL) 
+                ?? Constants.AppConstants.Environment.DEFAULT_LOG_LEVEL;
             
             Directory.CreateDirectory(logPath);
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Is(ParseLogLevel(logLevel))
-                .WriteTo.File(Path.Combine(logPath, "statusreport-.log"), 
+                .WriteTo.File(Path.Combine(logPath, Constants.AppConstants.Logging.LOG_FILE_PATTERN), 
                     rollingInterval: RollingInterval.Day,
-                    retainedFileCountLimit: 7)
+                    retainedFileCountLimit: Constants.AppConstants.Logging.RETAINED_FILE_COUNT)
                 .CreateLogger();
         }
 
